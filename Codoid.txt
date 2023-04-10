@@ -1,0 +1,1756 @@
+1.Write a Java program to create and throw custom exceptions.
+
+    class InvalidAgeException extends Exception {
+     private int age;
+
+     public InvalidAgeException(int age) {
+        this.age = age;
+     }
+
+     @Override
+     public String getMessage() {
+        return "Invalid age: " + age;
+     }
+     }
+
+   // Example class using custom exception
+   public class CustomExceptionExample {
+    // Method that throws custom exception
+    public void checkAge(int age) throws InvalidAgeException {
+        if (age < 0 || age > 120) {
+            throw new InvalidAgeException(age);
+        } else {
+            System.out.println("Age is valid: " + age);
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        CustomExceptionExample example = new CustomExceptionExample();
+        int age1 = 25;
+        int age2 = -10;
+        try {
+            example.checkAge(age1);
+            example.checkAge(age2);
+        } catch (InvalidAgeException e) {
+            System.out.println("Caught custom exception: " + e.getMessage());
+        }
+    }
+   }
+   In the above example, we define a custom exception class InvalidAgeException that extends the Exception class. We provide a constructor to set the      invalid       age value for the exception, and override the getMessage() method to return a custom error message that includes the invalid age value.
+
+ Then, in the CustomExceptionExample class, we have a method checkAge() that checks if the given age is valid or not. If the age is not valid (i.e., less    than 0 or greater than 120), it throws the custom exception InvalidAgeException. In the main() method, we catch the custom exception using a try-catch block and print the error message using the getMessage() method of the custom exception.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2.How do we reverse a string?
+
+   public class StringReverseExample {
+     public static String reverseString(String input) {
+        StringBuilder sb = new StringBuilder(input);
+        return sb.reverse().toString();
+    }
+
+    public static void main(String[] args) {
+        String input = "Hello, World!";
+        String reversed = reverseString(input);
+        System.out.println("Original string: " + input);
+        System.out.println("Reversed string: " + reversed);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3.Write a program that detects the duplicate characters in a string.
+
+
+      public class DuplicateCharacterDetection {
+    public static void detectDuplicateCharacters(String input) {
+        // Convert the input string to lowercase for case-insensitive comparison
+        input = input.toLowerCase();
+
+        // Loop through each character in the input string
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            // Ignore whitespace characters and characters that have already been counted as duplicates
+            if (!Character.isWhitespace(c) && c != '\0') {
+                int count = 1; // Initialize count to 1 for the current character
+                // Loop through the remaining characters after the current character
+                for (int j = i + 1; j < input.length(); j++) {
+                    char nextChar = input.charAt(j);
+                    // If the next character is not a whitespace character and matches the current character,
+                    // mark it as counted (null character) and increment the count
+                    if (!Character.isWhitespace(nextChar) && nextChar == c) {
+                        input = input.substring(0, j) + '\0' + input.substring(j + 1);
+                        count++;
+                    }
+                }
+                // If the count is greater than 1, print the duplicate character and its count
+                if (count > 1) {
+                    System.out.println("'" + c + "' occurs " + count + " times");
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String input = "Hello, World!";
+        System.out.println("Input string: " + input);
+        detectDuplicateCharacters(input);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. import java.util.ArrayList;
+import java.util.List;
+
+public class ArrayListDuplicateRemoval {
+    public static List<Integer> removeDuplicates(List<Integer> inputList) {
+        // Create a new ArrayList to store elements without duplicates
+        List<Integer> result = new ArrayList<>();
+
+        // Loop through each element in the inputList
+        for (Integer num : inputList) {
+            // If the element is not already in the result list, add it
+            if (!result.contains(num)) {
+                result.add(num);
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        // Sample input ArrayList with duplicates
+        List<Integer> inputList = new ArrayList<>();
+        inputList.add(1);
+        inputList.add(2);
+        inputList.add(3);
+        inputList.add(2);
+        inputList.add(4);
+        inputList.add(1);
+        inputList.add(5);
+
+        System.out.println("Input ArrayList with duplicates: " + inputList);
+
+        // Remove duplicates
+        List<Integer> result = removeDuplicates(inputList);
+
+        System.out.println("ArrayList after removing duplicates: " + result);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. Write a program to demonstrate method overriding?
+
+     class Animal {
+    void makeSound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Dog barks");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Cat meows");
+    }
+}
+
+public class MethodOverridingDemo {
+    public static void main(String[] args) {
+        Animal animal = new Animal();
+        animal.makeSound();  // Output: Animal makes sound
+
+        Dog dog = new Dog();
+        dog.makeSound();  // Output: Dog barks
+
+        Cat cat = new Cat();
+        cat.makeSound();  // Output: Cat meows
+
+        // Polymorphism: Using parent class reference to refer to child class object
+        Animal animal1 = new Dog();
+        Animal animal2 = new Cat();
+
+        animal1.makeSound();  // Output: Dog barks
+        animal2.makeSound();  // Output: Cat meows
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6.How is an infinite loop declared in Java?
+
+    we can do that using while,for,dowhile loop.
+
+   while (true) {
+    // code to be executed infinitely
+    System.out.println("infinite loop");
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7.Write a program to demonstrate the method overloading by changing data types?
+
+    public class MethodOverloadingDemo {
+    // Method with int data type as parameter
+    void display(int num) {
+        System.out.println("Method with int data type: " + num);
+    }
+
+    // Method with double data type as parameter
+    void display(double num) {
+        System.out.println("Method with double data type: " + num);
+    }
+
+    // Method with String data type as parameter
+    void display(String str) {
+        System.out.println("Method with String data type: " + str);
+    }
+
+    public static void main(String[] args) {
+        MethodOverloadingDemo obj = new MethodOverloadingDemo();
+
+        // Call the methods with different data types
+        obj.display(10);               // Output: Method with int data type: 10
+        obj.display(3.14);             // Output: Method with double data type: 3.14
+        obj.display("Hello, world!"); // Output: Method with String data type: Hello, world!
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+8.Write a program to demonstrate the method overloading by changing a number of arguments?
+
+    public class MethodOverloadingDemo {
+    // Method with one int parameter
+    void display(int num1) {
+        System.out.println("Method with one int parameter: " + num1);
+    }
+
+    // Method with two int parameters
+    void display(int num1, int num2) {
+        System.out.println("Method with two int parameters: " + num1 + ", " + num2);
+    }
+
+    // Method with three int parameters
+    void display(int num1, int num2, int num3) {
+        System.out.println("Method with three int parameters: " + num1 + ", " + num2 + ", " + num3);
+    }
+
+    public static void main(String[] args) {
+        MethodOverloadingDemo obj = new MethodOverloadingDemo();
+
+        // Call the methods with different number of arguments
+        obj.display(10);            // Output: Method with one int parameter: 10
+        obj.display(20, 30);        // Output: Method with two int parameters: 20, 30
+        obj.display(40, 50, 60);    // Output: Method with three int parameters: 40, 50, 60
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9.How to read a file in Java?
+
+   Create a File object that represents the file you want to read, by providing the file path as an argument to the File constructor.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10.What is getname in java with example?
+
+     In Java, the getName() method is a built-in method provided by the java.lang.Class class, which is used to get the name of the class or interface represented by the Class object.
+
+   public class GetNameExample {
+    public static void main(String[] args) {
+        // Get the name of a class
+        String className = GetNameExample.class.getName();
+        System.out.println("Class name: " + className);
+
+        // Get the name of an interface
+        String interfaceName = MyInterface.class.getName();
+        System.out.println("Interface name: " + interfaceName);
+    }
+}
+
+// Example interface
+interface MyInterface {
+    // Interface members
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+11.How to convert string to date in java in yyyy-mm-dd format?
+
+    import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class StringToDateExample {
+    public static void main(String[] args) {
+        String dateString = "2023-04-09"; // String in yyyy-MM-dd format
+        
+        // Create a SimpleDateFormat object with the desired format
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            // Parse the string to a Date object
+            Date date = sdf.parse(dateString);
+            
+            // Print the parsed date
+            System.out.println("Parsed date: " + date);
+        } catch (ParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+12. Write a program to generate the following output in java?
+
+       public class StarPatternExample {
+    public static void main(String[] args) {
+        int n = 6; // Number of rows in the pattern
+
+        // Loop to generate the pattern
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+14.How to remove special characters from a string in java?
+
+      public class SpecialCharacterRemover {
+    public static void main(String[] args) {
+        String input = "Hello! @World"; // Input string with special characters
+        
+        // Use regular expression to remove special characters
+        String result = input.replaceAll("[^a-zA-Z0-9\\s]", "");
+        
+        System.out.println("Input string: " + input);
+        System.out.println("Result string: " + result);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+16.How to sort array in java?
+
+     import java.util.Arrays;
+
+  public class ArraySortExample {
+    public static void main(String[] args) {
+        // Example with an array of integers
+        int[] numbers = { 5, 3, 9, 1, 7 };
+        System.out.println("Original array: " + Arrays.toString(numbers));
+
+        // Sort the array in ascending order
+        Arrays.sort(numbers);
+        System.out.println("Sorted array: " + Arrays.toString(numbers));
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+17.Write a program to do bubble sort on an array in java.
+
+        public class BubbleSortExample {
+    public static void main(String[] args) {
+        int[] arr = { 5, 3, 9, 1, 7 }; // Input array
+
+        System.out.println("Original array: " + Arrays.toString(arr));
+
+        bubbleSort(arr); // Sort the array using Bubble Sort
+
+        System.out.println("Sorted array: " + Arrays.toString(arr));
+    }
+
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        boolean swapped;
+
+        // Perform bubble sort
+        for (int i = 0; i < n - 1; i++) {
+            swapped = false;
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    // Swap arr[j] and arr[j + 1]
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+
+            // If no two elements were swapped in the inner loop, the array is already sorted
+            if (!swapped) {
+                break;
+            }
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+18. Write a Java program that sorts HashMap by value.
+
+         import java.util.*;
+
+public class SortHashMapByValueExample {
+    public static void main(String[] args) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("Alice", 25);
+        hashMap.put("Bob", 31);
+        hashMap.put("Charlie", 22);
+        hashMap.put("Dave", 28);
+        hashMap.put("Eve", 35);
+
+        System.out.println("Original HashMap:");
+        System.out.println(hashMap);
+
+        HashMap<String, Integer> sortedHashMap = sortByValue(hashMap);
+
+        System.out.println("Sorted HashMap by Value:");
+        System.out.println(sortedHashMap);
+    }
+
+    public static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hashMap) {
+        List<Map.Entry<String, Integer>> list = new LinkedList<>(hashMap.entrySet());
+
+        // Sort the list using a custom comparator
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                // Sort by value in descending order
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+
+        // Create a new LinkedHashMap to store the sorted entries
+        HashMap<String, Integer> sortedHashMap = new LinkedHashMap<>();
+
+        // Put the sorted entries into the new LinkedHashMap
+        for (Map.Entry<String, Integer> entry : list) {
+            sortedHashMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedHashMap;
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+19.Write Java program that checks if two arrays contain the same elements.
+
+           import java.util.Arrays;
+
+public class ArrayEqualityExample {
+    public static void main(String[] args) {
+        int[] array1 = {1, 2, 3, 4, 5};
+        int[] array2 = {5, 4, 3, 2, 1};
+        int[] array3 = {1, 2, 3, 4, 5};
+
+        System.out.println("Array1: " + Arrays.toString(array1));
+        System.out.println("Array2: " + Arrays.toString(array2));
+        System.out.println("Array3: " + Arrays.toString(array3));
+
+        System.out.println("Array1 and Array2 are equal: " + Arrays.equals(array1, array2));
+        System.out.println("Array1 and Array3 are equal: " + Arrays.equals(array1, array3));
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+20.Write a Java program to show a NullPointerException.
+
+   public class NullPointerExceptionExample {
+    public static void main(String[] args) {
+        String str = null;
+
+        try {
+            // Accessing a method or field on a null object reference
+            int length = str.length();
+        } catch (NullPointerException e) {
+            System.out.println("Caught NullPointerException: " + e.getMessage());
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+21.Show an example of switch expressions and multi-label case statements in Java.
+
+        public class SwitchExpressionExample {
+    public static void main(String[] args) {
+        String dayOfWeek = "Monday";
+
+        String result = switch (dayOfWeek) {
+            case "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" -> "Weekday";
+            case "Saturday", "Sunday" -> "Weekend";
+            default -> "Invalid day";
+        };
+
+        System.out.println("Result: " + result);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+22.How do you write an interface with default and static method?
+
+    public interface MyInterface {
+    // Abstract method
+    void method1();
+
+    // Default method
+    default void method2() {
+        System.out.println("Default method2() in MyInterface");
+    }
+
+    // Static method
+    static void method3() {
+        System.out.println("Static method3() in MyInterface");
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+23.What is Stringjoiner in Java 8?
+
+      StringJoiner is a class introduced in Java 8 as part of the java.util package. It provides a convenient way to join strings with a delimiter, and                   optionally, a prefix and a suffix. It is commonly used to concatenate strings with a specific delimiter in between them.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+24.Write a Java program to print stars using for loop, where the number of stars printed should be equal to the row number?
+
+    public class PrintStars {
+    public static void main(String[] args) {
+        int rows = 5; // Number of rows to print stars
+
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+25.Write a Java program to demonstrate the usage of break and continue statements inside while loop?
+
+   public class BreakContinueWhileLoop {
+    public static void main(String[] args) {
+        int i = 1;
+
+        System.out.println("Printing numbers 1 to 10 with break and continue statements:");
+        while (i <= 10) {
+            // Using break statement to exit the loop when i reaches 5
+            if (i == 5) {
+                System.out.println("Encountered 5. Exiting the loop with break statement.");
+                break;
+            }
+
+            // Using continue statement to skip printing even numbers
+            if (i % 2 == 0) {
+                System.out.println("Skipping even number: " + i);
+                i++;
+                continue;
+            }
+
+            System.out.println(i);
+            i++;
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+26.Write a Java Program to print the below output: * 1 * 12 * 123 * 1234 * 12345 * 123456 * 1234567
+
+   public class PrintPattern {
+    public static void main(String[] args) {
+        int rows = 7; // Number of rows in the pattern
+
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j);
+            }
+            System.out.println();
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+27.Write a Java program to read and write a file?
+
+public class FileReadWriteExample {
+    public static void main(String[] args) {
+        String fileName = "file.txt"; // Name of the file to be read and written
+        String fileContent = "Hello, World!"; // Content to be written to the file
+
+        // Write fileContent to fileName
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write(fileContent);
+            System.out.println("File " + fileName + " written successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+
+        // Read fileName and print its content
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            System.out.println("File " + fileName + " content:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+28.Implement factorial using recursion
+
+      public class FactorialRecursion {
+    public static int factorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        int num = 5; // Number for which factorial is to be calculated
+        int result = factorial(num);
+        System.out.println("Factorial of " + num + " is: " + result);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+29.Implement multiple inheritances using an interface
+
+                 // Interface 1
+interface Animal {
+    void sound();
+}
+
+// Interface 2
+interface Vehicle {
+    void speed();
+}
+
+// Class implementing both interfaces
+class Lion implements Animal, Vehicle {
+    @Override
+    public void sound() {
+        System.out.println("Lion roars!");
+    }
+
+    @Override
+    public void speed() {
+        System.out.println("Lion runs at top speed!");
+    }
+}
+
+public class MultipleInheritanceExample {
+    public static void main(String[] args) {
+        Lion lion = new Lion();
+        lion.sound(); // Output: Lion roars!
+        lion.speed(); // Output: Lion runs at top speed!
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+30.Java program for Enumeration
+
+   import java.util.Enumeration;
+
+public class EnumerationExample {
+    public static void main(String[] args) {
+        // Create a Vector with some elements
+        Vector<String> vector = new Vector<>();
+        vector.add("apple");
+        vector.add("banana");
+        vector.add("cherry");
+        vector.add("date");
+
+        // Get an Enumeration of the Vector elements
+        Enumeration<String> enumeration = vector.elements();
+
+        // Iterate through the elements using the Enumeration
+        while (enumeration.hasMoreElements()) {
+            String element = enumeration.nextElement();
+            System.out.println(element);
+        }
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+   
+31.Implement method overloading & overriding in java
+  
+  class Animal {
+    void makeSound() {
+        System.out.println("Animal makes sound.");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Dog barks.");
+    }
+
+    void playFetch() {
+        System.out.println("Dog plays fetch.");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Cat meows.");
+    }
+
+    void catchMouse() {
+        System.out.println("Cat catches a mouse.");
+    }
+}
+
+public class MethodOverloadingOverridingExample {
+    public static void main(String[] args) {
+        Animal animal = new Animal();
+        Dog dog = new Dog();
+        Cat cat = new Cat();
+
+        animal.makeSound(); // Animal makes sound.
+
+        dog.makeSound(); // Dog barks.
+        dog.playFetch(); // Dog plays fetch.
+
+        cat.makeSound(); // Cat meows.
+        cat.catchMouse(); // Cat catches a mouse.
+
+        // Polymorphism with method overriding
+        Animal animal1 = new Dog();
+        animal1.makeSound(); // Dog barks.
+
+        Animal animal2 = new Cat();
+        animal2.makeSound(); // Cat meows.
+
+        // Method overloading
+        dog.makeSound("Loud"); // Dog barks loudly.
+        cat.makeSound(3); // Cat meows 3 times.
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+33.Implement a program to merge two Arrays
+          
+  import java.util.Arrays;
+
+public class MergeArraysExample {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 2, 3, 4};
+        int[] arr2 = {5, 6, 7, 8};
+
+        int[] mergedArr = mergeArrays(arr1, arr2);
+
+        System.out.println("Merged Array: " + Arrays.toString(mergedArr));
+    }
+
+    public static int[] mergeArrays(int[] arr1, int[] arr2) {
+        int arr1Length = arr1.length;
+        int arr2Length = arr2.length;
+        int mergedArrLength = arr1Length + arr2Length;
+
+        int[] mergedArr = new int[mergedArrLength];
+
+        System.arraycopy(arr1, 0, mergedArr, 0, arr1Length);
+        System.arraycopy(arr2, 0, mergedArr, arr1Length, arr2Length);
+
+        return mergedArr;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+34.Implement a program to reverse a string using stack
+
+         import java.util.Stack;
+
+public class StringReversalUsingStack {
+    public static void main(String[] args) {
+        String input = "Hello, world!";
+        String reversed = reverseString(input);
+        System.out.println("Original String: " + input);
+        System.out.println("Reversed String: " + reversed);
+    }
+
+    public static String reverseString(String input) {
+        Stack<Character> stack = new Stack<>();
+        char[] charArray = input.toCharArray();
+
+        // Push each character onto the stack
+        for (char c : charArray) {
+            stack.push(c);
+        }
+
+        // Pop each character from the stack to reverse the string
+        StringBuilder reversed = new StringBuilder();
+        while (!stack.isEmpty()) {
+            reversed.append(stack.pop());
+        }
+
+        return reversed.toString();
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+35.Implement a program to sort a map by value / Key
+
+   import java.util.*;
+
+public class MapSortExample {
+    public static void main(String[] args) {
+        // Create a HashMap
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("John", 25);
+        map.put("Alice", 30);
+        map.put("Bob", 22);
+        map.put("Eve", 35);
+
+        System.out.println("Original HashMap: " + map);
+
+        // Sort HashMap by value
+        LinkedHashMap<String, Integer> sortedByValue = sortByValue(map);
+        System.out.println("Sorted HashMap by value: " + sortedByValue);
+
+        // Sort HashMap by key
+        TreeMap<String, Integer> sortedByKey = sortByKey(map);
+        System.out.println("Sorted HashMap by key: " + sortedByKey);
+    }
+
+    // Method to sort a HashMap by value
+    public static LinkedHashMap<String, Integer> sortByValue(HashMap<String, Integer> map) {
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+        LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedMap;
+    }
+
+    // Method to sort a HashMap by key
+    public static TreeMap<String, Integer> sortByKey(HashMap<String, Integer> map) {
+        TreeMap<String, Integer> sortedMap = new TreeMap<>(map);
+        return sortedMap;
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+36.Write a Java Program for Fibonacci series.
+
+           public class FibonacciSeries {
+    public static void main(String[] args) {
+        int n = 10; // Number of terms in Fibonacci series
+        System.out.println("Fibonacci series of " + n + " terms:");
+        for (int i = 0; i < n; i++) {
+            int fib = fibonacci(i);
+            System.out.print(fib + " ");
+        }
+    }
+
+    // Method to calculate Fibonacci number at a given position
+    public static int fibonacci(int n) {
+        if (n <= 1) {
+            return n;
+        } else {
+            return fibonacci(n - 1) + fibonacci(n - 2);
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+37.Compare StringBuffer with a string
+
+  StringBuffer and String are both classes in Java that are used to represent sequences of characters. However, there are some differences between them:
+  String is immutable, thread-safe, and suitable for situations where strings need to be used as read-only or constant values. StringBuffer is mutable, not thread-safe by default, and suitable for situations where strings need to be frequently modified or manipulated. If thread-safety is not a concern and performance is a consideration, StringBuilder is a better choice than StringBuffer.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+38.Constructor Overloading
+
+     public class Employee {
+    private String name;
+    private int age;
+    private double salary;
+    
+    // Default constructor
+    public Employee() {
+        // Default initialization
+        name = "";
+        age = 0;
+        salary = 0.0;
+    }
+    
+    // Constructor with name parameter
+    public Employee(String name) {
+        this.name = name;
+        // Default initialization for other fields
+        age = 0;
+        salary = 0.0;
+    }
+    
+    // Constructor with name, age, and salary parameters
+    public Employee(String name, int age, double salary) {
+        this.name = name;
+        this.age = age;
+        this.salary = salary;
+    }
+    
+    // Getters and Setters omitted for brevity
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+39.Iterate the map values using lambda expression
+
+          import java.util.HashMap;
+import java.util.Map;
+
+public class MapIterationExample {
+    public static void main(String[] args) {
+        // Create a HashMap
+        Map<String, Integer> map = new HashMap<>();
+        map.put("one", 1);
+        map.put("two", 2);
+        map.put("three", 3);
+        map.put("four", 4);
+        map.put("five", 5);
+        
+        // Iterate over the values using forEach and lambda expression
+        map.forEach((key, value) -> {
+            System.out.println("Key: " + key + ", Value: " + value);
+        });
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+40.remove duplicates from sorted array
+
+          import java.util.Arrays;
+
+public class RemoveDuplicatesFromSortedArray {
+    public static void main(String[] args) {
+        int[] sortedArray = {1, 1, 2, 2, 3, 3, 4, 4, 4, 5, 5, 6, 6, 6, 6};
+        int[] result = removeDuplicates(sortedArray);
+        System.out.println(Arrays.toString(result));
+    }
+
+    public static int[] removeDuplicates(int[] sortedArray) {
+        if (sortedArray.length == 0 || sortedArray.length == 1) {
+            return sortedArray;
+        }
+
+        int[] uniqueArray = new int[sortedArray.length];
+        int uniqueIndex = 0;
+        uniqueArray[uniqueIndex++] = sortedArray[0];
+
+        for (int i = 1; i < sortedArray.length; i++) {
+            if (sortedArray[i] != sortedArray[i - 1]) {
+                uniqueArray[uniqueIndex++] = sortedArray[i];
+            }
+        }
+
+        return Arrays.copyOfRange(uniqueArray, 0, uniqueIndex);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+41.swap two numbers without using temporary variable
+
+      public class SwapWithoutTemp {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 20;
+        System.out.println("Before swap:");
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+
+        swapWithoutTemp(a, b);
+
+        System.out.println("After swap:");
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+    }
+
+    public static void swapWithoutTemp(int a, int b) {
+        a = a + b;
+        b = a - b;
+        a = a - b;
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+42.Implement Exception Handling without Catch block
+
+        public class ExceptionHandlingWithoutCatch {
+    public static void main(String[] args) throws Exception {
+        int result = divide(10, 0);
+        System.out.println("Result: " + result);
+    }
+
+    public static int divide(int a, int b) throws Exception {
+        if (b == 0) {
+            throw new Exception("Divide by zero not allowed.");
+        }
+        return a / b;
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+43.Iterate the map values using lambda expression
+
+        import java.util.HashMap;
+import java.util.Map;
+
+public class MapValueIterationWithLambda {
+    public static void main(String[] args) {
+        // Create a map
+        Map<String, Integer> map = new HashMap<>();
+        map.put("A", 1);
+        map.put("B", 2);
+        map.put("C", 3);
+        map.put("D", 4);
+        map.put("E", 5);
+
+        // Iterate over map values using lambda expression
+        map.values().forEach(value -> System.out.println("Value: " + value));
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+46.Iterate a Linkedlist using Lambda's Expression
+
+        import java.util.LinkedList;
+
+public class LinkedListIterationWithLambda {
+    public static void main(String[] args) {
+        // Create a LinkedList
+        LinkedList<String> linkedList = new LinkedList<>();
+        linkedList.add("A");
+        linkedList.add("B");
+        linkedList.add("C");
+        linkedList.add("D");
+        linkedList.add("E");
+
+        // Convert LinkedList to Stream and iterate using lambda expression
+        linkedList.stream().forEach(element -> System.out.println("Element: " + element));
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+47.Find Maximum repeated charcter count in a string
+
+          public class MaxRepeatedCharCount {
+    public static void main(String[] args) {
+        String input = "Hello World";
+        int[] charCount = new int[256]; // Assuming ASCII characters
+
+        // Iterate over each character in the input string and update character count
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            charCount[ch]++;
+        }
+
+        int maxCharCount = 0;
+        char maxChar = '\0';
+
+        // Find the character with the maximum count
+        for (int i = 0; i < charCount.length; i++) {
+            if (charCount[i] > maxCharCount) {
+                maxCharCount = charCount[i];
+                maxChar = (char) i;
+            }
+        }
+
+        System.out.println("Character with maximum repeated count: " + maxChar);
+        System.out.println("Maximum repeated count: " + maxCharCount);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+48.Implement quick sorting
+
+public class QuickSort {
+    public static void main(String[] args) {
+        int[] arr = {10, 7, 8, 9, 1, 5};
+        System.out.println("Original Array:");
+        printArray(arr);
+
+        quickSort(arr, 0, arr.length - 1);
+
+        System.out.println("\nSorted Array:");
+        printArray(arr);
+    }
+
+    public static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(arr, low, high);
+            quickSort(arr, low, pivotIndex - 1);
+            quickSort(arr, pivotIndex + 1, high);
+        }
+    }
+
+    public static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+
+        swap(arr, i + 1, high);
+        return i + 1;
+    }
+
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void printArray(int[] arr) {
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+          
+50.Implement Merge sorting
+
+            public class MergeSort {
+    public static void main(String[] args) {
+        int[] arr = {10, 7, 8, 9, 1, 5};
+        System.out.println("Original Array:");
+        printArray(arr);
+
+        mergeSort(arr, 0, arr.length - 1);
+
+        System.out.println("\nSorted Array:");
+        printArray(arr);
+    }
+
+    public static void mergeSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int mid = left + (right - left) / 2;
+
+            // Sort the left half
+            mergeSort(arr, left, mid);
+
+            // Sort the right half
+            mergeSort(arr, mid + 1, right);
+
+            // Merge the sorted halves
+            merge(arr, left, mid, right);
+        }
+    }
+
+    public static void merge(int[] arr, int left, int mid, int right) {
+        // Sizes of two sub-arrays to be merged
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        // Create temporary arrays to store sub-arrays
+        int[] leftArray = new int[n1];
+        int[] rightArray = new int[n2];
+
+        // Copy data from original array to temporary arrays
+        for (int i = 0; i < n1; i++) {
+            leftArray[i] = arr[left + i];
+        }
+
+        for (int j = 0; j < n2; j++) {
+            rightArray[j] = arr[mid + 1 + j];
+        }
+
+        // Merge the two temporary arrays back into the original array
+        int i = 0;
+        int j = 0;
+        int k = left;
+
+        while (i < n1 && j < n2) {
+            if (leftArray[i] <= rightArray[j]) {
+                arr[k++] = leftArray[i++];
+            } else {
+                arr[k++] = rightArray[j++];
+            }
+        }
+
+        // Copy the remaining elements from leftArray, if any
+        while (i < n1) {
+            arr[k++] = leftArray[i++];
+        }
+
+        // Copy the remaining elements from rightArray, if any
+        while (j < n2) {
+            arr[k++] = rightArray[j++];
+        }
+    }
+
+    public static void printArray(int[] arr) {
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+53.Write a Java Program to find whether a string or number is palindrome or not.
+
+           public class PalindromeCheck {
+    public static void main(String[] args) {
+        String str1 = "racecar";
+        String str2 = "hello";
+        int num1 = 12321;
+        int num2 = 12345;
+
+        System.out.println("String \"" + str1 + "\" is a palindrome: " + isPalindrome(str1));
+        System.out.println("String \"" + str2 + "\" is a palindrome: " + isPalindrome(str2));
+        System.out.println("Number \"" + num1 + "\" is a palindrome: " + isPalindrome(num1));
+        System.out.println("Number \"" + num2 + "\" is a palindrome: " + isPalindrome(num2));
+    }
+
+    public static boolean isPalindrome(String str) {
+        str = str.toLowerCase();
+        int left = 0;
+        int right = str.length() - 1;
+
+        while (left < right) {
+            if (str.charAt(left++) != str.charAt(right--)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isPalindrome(int num) {
+        int original = num;
+        int reversed = 0;
+
+        while (num > 0) {
+            int remainder = num % 10;
+            reversed = reversed * 10 + remainder;
+            num /= 10;
+        }
+
+        return original == reversed;
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+56.Implement a program for encapsulation
+
+       public class Student {
+    private String name;
+    private int age;
+    private String course;
+
+    // Constructor
+    public Student(String name, int age, String course) {
+        this.name = name;
+        this.age = age;
+        this.course = course;
+    }
+
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    // Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    // Display method
+    public void displayInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Course: " + course);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+59.Implement a program for abstraction
+
+      abstract class Animal {
+    protected String species;
+    
+    // Constructor
+    public Animal(String species) {
+        this.species = species;
+    }
+    
+    // Abstract method
+    public abstract void makeSound();
+    
+    // Concrete method
+    public void displaySpecies() {
+        System.out.println("Species: " + species);
+    }
+}
+
+class Dog extends Animal {
+    // Constructor
+    public Dog(String species) {
+        super(species);
+    }
+    
+    // Implementation of abstract method
+    @Override
+    public void makeSound() {
+        System.out.println("Dog makes barking sound");
+    }
+}
+
+class Cat extends Animal {
+    // Constructor
+    public Cat(String species) {
+        super(species);
+    }
+    
+    // Implementation of abstract method
+    @Override
+    public void makeSound() {
+        System.out.println("Cat makes meowing sound");
+    }
+}
+
+public class AbstractionExample {
+    public static void main(String[] args) {
+        Animal dog = new Dog("Dog");
+        Animal cat = new Cat("Cat");
+        
+        dog.displaySpecies();
+        dog.makeSound();
+        
+        cat.displaySpecies();
+        cat.makeSound();
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+65.How to check Odd and Even Number in java.
+
+import java.util.Scanner;
+
+public class OddEvenCheck {
+    public static void main(String[] args) {
+        // Create a Scanner object for user input
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter a number: ");
+        int num = scanner.nextInt(); // Read user input as integer
+        
+        // Check if the number is odd or even
+        if (num % 2 == 0) {
+            System.out.println(num + " is an even number.");
+        } else {
+            System.out.println(num + " is an odd number.");
+        }
+        
+        // Close the Scanner object
+        scanner.close();
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+66.Print Multiplication table Program in java
+
+ import java.util.Scanner;
+
+public class MultiplicationTable {
+    public static void main(String[] args) {
+        // Create a Scanner object for user input
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter a number: ");
+        int num = scanner.nextInt(); // Read user input as integer
+        
+        System.out.println("Multiplication table for " + num + ":");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(num + " * " + i + " = " + (num * i));
+        }
+        
+        // Close the Scanner object
+        scanner.close();
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+67.Check no is Armstrong or not in java Program
+
+import java.util.Scanner;
+
+public class ArmstrongNumber {
+    public static void main(String[] args) {
+        // Create a Scanner object for user input
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a number: ");
+        int num = scanner.nextInt(); // Read user input as integer
+
+        if (isArmstrong(num)) {
+            System.out.println(num + " is an Armstrong number.");
+        } else {
+            System.out.println(num + " is not an Armstrong number.");
+        }
+
+        // Close the Scanner object
+        scanner.close();
+    }
+
+    public static boolean isArmstrong(int num) {
+        int originalNum = num;
+        int sum = 0;
+
+        // Calculate the sum of cubes of individual digits
+        while (num > 0) {
+            int digit = num % 10;
+            sum += (digit * digit * digit);
+            num /= 10;
+        }
+
+        // Compare the sum with the original number
+        return sum == originalNum;
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+68.How to add two matrix in java Program
+
+        import java.util.Scanner;
+
+public class MatrixAddition {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read dimensions of matrices
+        System.out.print("Enter number of rows: ");
+        int rows = scanner.nextInt();
+        System.out.print("Enter number of columns: ");
+        int cols = scanner.nextInt();
+
+        // Create two matrices
+        int[][] matrix1 = new int[rows][cols];
+        int[][] matrix2 = new int[rows][cols];
+
+        // Read elements of first matrix
+        System.out.println("Enter elements of first matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print("Enter element at position (" + i + ", " + j + "): ");
+                matrix1[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Read elements of second matrix
+        System.out.println("Enter elements of second matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print("Enter element at position (" + i + ", " + j + "): ");
+                matrix2[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Call method to add two matrices
+        int[][] sumMatrix = addMatrices(matrix1, matrix2);
+
+        // Display the sum matrix
+        System.out.println("Sum of the two matrices is:");
+        displayMatrix(sumMatrix);
+
+        scanner.close();
+    }
+
+    public static int[][] addMatrices(int[][] matrix1, int[][] matrix2) {
+        int rows = matrix1.length;
+        int cols = matrix1[0].length;
+        int[][] sumMatrix = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                sumMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+        }
+
+        return sumMatrix;
+    }
+
+    public static void displayMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+69.How to create method in java Program
+
+        public class HelloWorld {
+
+    // Example method that prints a greeting message
+    public static void printGreeting() {
+        System.out.println("Hello, world!");
+    }
+
+    // Example method that calculates the sum of two numbers
+    public static int calculateSum(int num1, int num2) {
+        int sum = num1 + num2;
+        return sum;
+    }
+
+    // Main method (entry point of the program)
+    public static void main(String[] args) {
+        // Call the printGreeting() method
+        printGreeting();
+
+        // Call the calculateSum() method and store the result in a variable
+        int result = calculateSum(5, 10);
+
+        // Display the result
+        System.out.println("Sum is: " + result);
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+74.How to print date and time in java Program
+
+        import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class DateTimeExample {
+
+    public static void main(String[] args) {
+        // Get the current date and time
+        LocalDateTime now = LocalDateTime.now();
+        
+        // Define the format for the date and time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        
+        // Format the current date and time using the formatter
+        String formattedDateTime = now.format(formatter);
+        
+        // Print the formatted date and time
+        System.out.println("Current date and time: " + formattedDateTime);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+80. How to create Find Factorial No using Recursion Program in java
+
+       public class FactorialExample {
+
+    public static int factorial(int n) {
+        if (n == 0) {
+            return 1;
+        } else {
+            return n * factorial(n - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        int number = 5; // The number for which factorial is to be calculated
+        int result = factorial(number); // Call the factorial method
+        System.out.println("Factorial of " + number + " is: " + result);
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1.What are Scalar functions and write a query?
+
+     Scalar functions are database functions that take input parameters and return a single value as their result. They can be used in SQL queries to perform calculations, transformations, or data manipulation on a per-row basis. Scalar functions are commonly used in SELECT, WHERE, and ORDER BY clauses of SQL queries to derive values based on the input data.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2.Explain joins with example and output.
+
+      In SQL, a join is a way to combine data from two or more tables based on a related column between them. Joins are commonly used in relational databases to retrieve data from multiple tables that are related to each other.
+
+(INNER) JOIN: Returns records that have matching values in both tables
+LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3.Write a SQL query to Rename the column name.
+
+        ALTER TABLE table_name RENAME COLUMN old_column_name TO new_column_name;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4.Write a SQL query to find duplicate records
+
+ SELECT column1, column2, column3, COUNT(*) as duplicate_count
+FROM table_name
+GROUP BY column1, column2, column3
+HAVING COUNT(*) > 1;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5.How do we use the DISTINCT statement? What are its use?
+
+            The DISTINCT statement is used in SQL to retrieve unique values from a column or a combination of columns in a table. It eliminates duplicate rows from the result set and returns only the distinct (unique) values.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6.Remove duplicate from the table 
+
+Create a temporary table with the distinct rows from the original table.
+Delete the original table.
+Rename the temporary table to the original table name.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7.Print max salary for a particular department 
+
+SELECT MAX(salary) AS max_salary
+FROM employees
+WHERE department = 'your_department_name';
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+8.Use different operators in SQL 
+
+    SELECT column1 + column2 AS sum
+FROM table_name;
+
+SELECT column1 - column2 AS difference
+FROM table_name;
+
+SELECT column1 * column2 AS product
+FROM table_name;
+
+SELECT column1 / column2 AS quotient
+FROM table_name;
+
+SELECT column1 % column2 AS remainder
+FROM table_name;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9."What is Query to display first 5 Records from Employee table?"
+
+SELECT *
+FROM Employee
+LIMIT 5;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+10."What is Query to display last 5 Records from Employee table?"
+
+ SELECT *
+FROM Employee
+ORDER BY emp_id DESC -- Assuming emp_id is the column that determines the order
+LIMIT 5;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+11."How to fetch 3rd highest salary using Rank Function"
+
+      SELECT emp_name, emp_salary
+FROM (
+  SELECT emp_name, emp_salary, RANK() OVER (ORDER BY emp_salary DESC) AS salary_rank
+  FROM Employee
+) AS ranked_employees
+WHERE salary_rank = 3;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+13."Find Query to get information of Employee where Employee is not assigned to the department"
+
+               SELECT emp_id, emp_name
+FROM Employee
+LEFT JOIN Department ON Employee.emp_id = Department.emp_id
+WHERE Department.emp_id IS NULL;
+
